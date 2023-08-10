@@ -1,0 +1,46 @@
+plugins:
+  go:
+    executor: central_deployment_agent
+    package_name: 'cloudify-go-wrapper-plugin'
+    package_version: '1.0'
+
+data_types:
+  cloudify.datatypes.GoConfig:
+    properties:
+      go_version:
+        type: string
+        description: >
+          go binary version to configure on the system
+      go_source_code:
+        type: string
+        description: >
+          go source code that you want to wrap
+      go_function:
+        type: string
+        description: >
+          exported function from go to call
+      go_function_inputs:
+        required: false
+        description: >
+          inputs to pass to go function [ can be string or dict or int ... depends on the function input]
+      go_function_outputs:
+        required: false
+        description: >
+          expected result from go function
+
+
+node_types:
+
+  cloudify.nodes.GoExecutor:
+    derived_from: cloudify.nodes.Root
+    properties:
+      resource_config:
+        type: cloudify.datatypes.GoConfig
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create:
+          implementation: go.go_wrap.tasks.install_go
+        configure:
+          implementation: go.go_wrap.tasks.compile_code
+        start:
+          implementation: go.go_wrap.tasks.execute_call
