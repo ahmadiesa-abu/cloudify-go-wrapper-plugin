@@ -51,4 +51,4 @@ node_templates:
 
           }
 
-        go_function: farewell
+        go_function: helloWorld

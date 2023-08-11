@@ -56,7 +56,8 @@ setup(
     install_requires=[
         # Necessary dependency for developing plugins, do not remove!
         "cloudify-common>=7.1.0.dev1",
-        "cloudify-utilities-plugins-sdk>=0.0.118"
+        "cloudify-utilities-plugins-sdk>=0.0.118",
+        "py"
     ],
     test_requires=[
         "cloudify-common>=7.1.0.dev1",
